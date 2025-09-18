@@ -47,7 +47,7 @@ A 6T SRAM cell consists of:
 ## **Project Description**
 
 ### **Objective**
-The objective of this project is to design, simulate, and layout a 6T SRAM bitcell using Cadence Virtuoso, and analyze its static noise margin, read/write functionality, and power dissipation.
+The objective of this project is to design, simulate, and layout a 6T SRAM bitcell using Cadence Virtuoso, and analyze its static noise margin, read/write functionality, and power dissipation and post-layout verification.
 
 ### **Tools & Technology**
 - **Cadence Virtuoso** – Schematic design, simulation, and layout.  
@@ -57,61 +57,111 @@ The objective of this project is to design, simulate, and layout a 6T SRAM bitce
 ## **Project Workflow**
 
 ### 1. Schematic Design
-- Created a 6T SRAM bitcell schematic using CMOS transistors.  
+- Designed a 6T SRAM bitcell schematic using CMOS transistors.  
+- Created a **Symbol** for easy instantiation in higher-level designs (memory design).  
 - Transistor sizing chosen to balance read stability, write ability, and area efficiency. 
 
+*Schematic*
 ![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Schematic.png?raw=true)
+
+*Symbol*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/SRAM%20bitcell%20symbol.png?raw=true)
 
 ### 2. DC Analysis
 - Performed butterfly curve analysis to extract Static Noise Margin (SNM).  
 - Evaluated hold SNM and read SNM for cell stability.  
 
-![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DC%20analysis(1).png?raw=true)
+*Parameter Sweep - Q*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DC%20Analysis-1.png?raw=true)
 
-Butterfly curve:
-![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DC%20analysis(2).png?raw=true)
+*Butterfly curve (Q v/s Qbar)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DC%20Analysis-2.png?raw=true)
+
+*ADE L window*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DC%20Analysis-3.png?raw=true)
 
 ### 3. Transient Analysis
-- Verified Read ‘0’ and Read ‘1’ operations.  
+- Verified Read/Write ‘0’ and ‘1’ operations.  
 - Analyzed bitline behavior and wordline timing.  
-- (To be completed) Write ‘0’ and Write ‘1’ operations will be simulated to check write margins.  
 
-Read ‘0’:
+*Read ‘0’*
 ![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Read%200.png?raw=true)
 
-Read ‘1’:
+*Read ‘1’*
 ![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Read%201.png?raw=true)
 
 ### 4. Power Analysis
-- Used power peak-to-peak measurement to calculate power dissipation during read and write cycles.   
+- Performed DC sweep to analyze static power dissipation across different logic states of the SRAM bitcell."
+- Measured peak-to-peak variation in static power consumption using Virtuoso calculator.
 
+*Power signal plot*
 ![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Power.png?raw=true)
 
-peak to peak power:
-![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Power%20(peak%20to%20peak).png?raw=true)
+*Peak-to-Peak Power*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Power%20(Peak%20to%20Peak).png?raw=true)
 
 ### 5. Layout Design
-- Designed a compact layout of the 6T SRAM bitcell in Cadence Virtuoso Layout Editor.  
-- Placement of NMOS and PMOS transistors optimized for area and symmetry.  
-- Routing done for bitlines, wordline, and supply rails.  
-- (Pending) LVS and DRC checks will be performed for validation.
+- Designed a compact layout of the 6T SRAM bitcell in Virtuoso Layout Editor.  
+- Transistor placement optimized for symmetry and matching.  
+- Routing done for bitlines, wordline, and power rails (VDD, GND).
 
-## **Results (So Far)**
-- **Butterfly curve obtained** → SNM calculated.  
+*Layout*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Layout.png?raw=true)
+
+### 6. DRC and LVS Verification
+- **DRC (Design Rule Check)** performed → No violations found.  
+- **LVS (Layout vs Schematic)** → Netlists successfully matched.  
+
+*DRC and LVS report screenshots*
+
+*(1)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DRC-1.png?raw=true)
+
+*(2)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DRC-2.png?raw=true)
+
+*(3)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/LVS-1.png?raw=true)
+
+*(4)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/LVS-2.png?raw=true)
+
+
+### 7. RC Extraction & Post-Layout Simulation
+- Extracted parasitics from layout using RC Extraction.  
+- Generated **extracted layout view**.  
+- Ensured functional verification matches schematic-level results.  
+
+*Layout (after extraction)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/Layout%20(after%20extration).png?raw=true)
+
+*DRC and LVS report (after extraction) screenshots*
+
+*(1)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DRC_LVS%20(after%20extraction)-1.png?raw=true)
+
+*(2)*
+![App Screenshot](https://github.com/itsharshschoice/Design-and-Layout-of-a-6T-SRAM-Bitcell/blob/main/Screenshots/DRC_LVS%20(after%20extraction)-2.png?raw=true)
+
+## **Results**
+- **Butterfly curve** obtained → SNM successfully calculated.  
 - **Read ‘0’ and Read ‘1’ operations** verified.  
-- **Power dissipation (peak-to-peak)** analyzed.  
-- **Write operations** under simulation.  
-- **Layout LVS verification** to be completed.  
+- **Write ‘0’ and Write ‘1’ operations** verified.  
+- **Power dissipation** analyzed (peak-to-peak).  
+- **Layout designed and verified** through DRC and LVS.  
+- **Post-layout extracted view** created and validated.  
 
 ## **Learning Outcomes**
 - Understood the internal working of SRAM bitcells at transistor level.  
 - Learned to perform DC and transient simulations for memory circuits.  
-- Explored power-performance trade-offs in memory design.  
-- Gained hands-on experience in schematic design, analysis, and layout in Cadence Virtuoso.
+- Learned layout design flow with DRC, LVS, and RC extraction.  
+- Acquired hands-on experience with Cadence Virtuoso and Spectre simulations.
 
 ## **Conclusion**
 
-In this project, a 6T SRAM bitcell was designed and analyzed in Cadence Virtuoso. The work included schematic design, DC analysis using butterfly curves for SNM calculation, transient simulations for read operations, and power dissipation measurement. The layout of the bitcell was also implemented, with LVS verification planned as the next step.
+In this project, a complete **6T SRAM bitcell** was designed and verified in Cadence Virtuoso. The work included schematic design, symbol creation, DC analysis for SNM, transient simulations for read and write operations, and power dissipation analysis. A compact layout was implemented, followed by DRC and LVS verification, and RC extraction to generate an extracted view. The results confirm correct operation of the SRAM bitcell both at schematic and layout levels.
+
+This 6T SRAM bitcell can be used as a fundamental building block for designing larger memory circuits, such as cache memory, register files, and on-chip buffers in processors.
 
 
 
